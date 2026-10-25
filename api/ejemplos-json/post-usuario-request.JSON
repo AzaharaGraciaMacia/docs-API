@@ -1,0 +1,9 @@
+{
+    "email": "azahara.gracia@example.com",
+    "nombre": "Azahara Gracia Mac",
+    "fechaNacimiento": "1989-01-14",
+    "edad": 35,
+    "telefonoMovil": "601234567",
+    "tipoUsuario": "cliente",
+    "direccion": "Calle 123, Madrid"
+}

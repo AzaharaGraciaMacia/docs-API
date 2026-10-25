@@ -1,0 +1,15 @@
+{
+  "idReserva": 349,
+  "idRecurso": "5F3",
+  "nombreRecurso": "Salón recreativo A",
+  "fecha": "2026-03-15",
+  "horaInicio": "09:00:00",
+  "horaFin": "17:00:00",
+  "numPlazas": 4,
+  "motivoReserva": "Cumpleaños de Ana",
+  "observaciones": "Alergia a frutos secos, por favor no incluirlos en la comida",
+  "idUsuario": "azahara.gracia@example.com",
+  "estadoReserva": "confirmada",
+  "creadoEn": "2026-02-13T10:30:00Z",
+  "modificadoEn": "2026-02-13T10:30:00Z"
+}

@@ -1,0 +1,483 @@
+openapi: 3.0.0
+info:
+  title: Sistema Reservas Azahara Gracia API
+  version: 1.0.0
+  description: API para gestionar reservas en el sistema del proyecto intermodular de Azahara Gracia.
+servers:
+  - url: http://localhost:4555/api
+    description: Servidor principal de la API del sistema de reservas.
+tags:
+  - name: Reservas
+    description: Operaciones relacionadas con la gestión de reservas.
+  - name: Usuarios
+    description: Operaciones relacionadas con la gestión de usuarios.
+paths:
+  /reserva/{idReserva}:
+    get:
+      summary: Obtener una reserva por ID
+      tags:
+        - Reservas
+      description: Recupera los detalles de una reserva específica del sistema usando su ID.
+      parameters:
+        - in: path
+          name: idReserva
+          schema:
+            type: integer
+          required: true
+          description: ID de la reserva a recuperar.
+      responses:
+        "200":
+          description: Detalles de la reserva.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reserva"
+        "404":
+          description: Reserva no encontrada.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Reserva no encontrada.
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+    patch:
+      summary: Actualizar una reserva existente
+            tags:
+              - Reservas
+            description: Modifica los detalles de una reserva específica del sistema usando su ID.
+            parameters:
+              - in: path
+                name: idReserva
+                schema:
+                  type: integer
+                required: true
+                description: ID de la reserva a actualizar.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Reserva"
+            responses:
+              "200":
+                description: Reserva actualizada con éxito.
+                content:
+                  text/plain:
+                    schema:
+                      type: string
+                      example: Reserva actualizada con éxito.
+              "400":
+                description: Solicitud incorrecta.
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        error:
+                          type: string
+                          example: Solicitud incorrecta.
+              "404":
+                description: Reserva no encontrada.
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        error:
+                          type: string
+                          example: Reserva no encontrada.
+              "500":
+                description: Error interno del servidor.
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        error:
+                          type: string
+                          example: Internal server error
+  /reserva:
+    post:
+      summary: Crear una nueva reserva
+      tags:
+        - Reservas
+      description: Agrega una nueva reserva al sistema de reservas.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reserva"
+      responses:
+        "201":
+          description: Reserva creada con éxito.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Reserva creada con éxito.
+        "400":
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Solicitud incorrecta.
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+
+  /reservaBorrar/{idReserva}:
+    delete:
+      summary: Eliminar una reserva
+      tags:
+        - Reservas
+      description: Elimina una reserva específica del sistema usando su ID.
+      parameters:
+        - in: path
+          name: idReserva
+          schema:
+            type: integer
+          required: true
+          description: ID de la reserva a eliminar.
+      responses:
+        "204":
+          description: Reserva eliminada con éxito.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Reserva eliminada con éxito.
+        "404":
+          description: Reserva no encontrada.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Reserva no encontrada.
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+  /usuario/{email}:
+    get:
+      summary: Obtener un usuario por email
+      tags:
+        - Usuarios
+      description: Recupera los detalles de un usuario específico del sistema usando su email.
+      parameters:
+        - in: path
+          name: email
+          schema:
+            type: string
+            format: email
+          required: true
+          description: Email del usuario a recuperar.
+      responses:
+        "200":
+          description: Detalles del usuario.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+        "404":
+          description: Usuario no encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Usuario no encontrado.
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+  /usuario:
+    post:
+      summary: Crear un nuevo usuario
+      tags:
+        - Usuarios
+      description: Agrega un nuevo usuario al sistema de reservas.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+      responses:
+        "201":
+          description: Usuario creado con éxito.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Usuario creado con éxito.
+        "400":
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Solicitud incorrecta.
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+  /usuarioActualizar/{email}:
+    patch:
+      summary: Actualizar un usuario existente
+      tags:
+        - Usuarios
+      description: Modifica los detalles de un usuario específico del sistema usando su email.
+      parameters:
+        - in: path
+          name: email
+          schema:
+            type: string
+            format: email
+          required: true
+          description: Email del usuario a actualizar.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+      responses:
+        "200":
+          description: Usuario actualizado con éxito.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Usuario actualizado con éxito.
+        "400":
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Solicitud incorrecta.
+        "404":
+          description: Usuario no encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Usuario no encontrado.
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+  /usuarioBorrar/{email}:
+    delete:
+      summary: Eliminar un usuario
+      tags:
+        - Usuarios
+      description: Elimina un usuario específico del sistema usando su email.
+      parameters:
+        - in: path
+          name: email
+          schema:
+            type: string
+            format: email
+          required: true
+          description: Email del usuario a eliminar.
+      responses:
+        "204":
+          description: Usuario eliminado con éxito.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Usuario eliminado con éxito.
+        "404":
+          description: Usuario no encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Usuario no encontrado.
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+components:
+  schemas:
+    Reserva:
+      type: object
+      properties:
+        idReserva:
+          type: integer
+          description: El ID de la reserva.
+          example: 123
+        idRecurso:
+          type: string
+          description: El ID del recurso reservado.
+          example: 4F56
+        nombreRecurso:
+          type: string
+          description: El nombre del recurso reservado.
+          example: Sala de reuniones
+        fechaReserva:
+          type: string
+          format: date
+          description: La fecha y hora de la reserva.
+          example: 2024-06-01
+        horaInicio:
+          type: string
+          format: time
+          description: La hora de inicio de la reserva.
+          example: 14:00:00
+        horaFin:
+          type: string
+          format: time
+          description: La hora de fin de la reserva.
+          example: 16:00:00
+        numPlazas:
+          type: integer
+          description: El número de personas para la reserva.
+          example: 4
+        motivoReserva:
+          type: string
+          description: El motivo de la reserva.
+          example: Cena familiar
+        observaciones:
+          type: string
+          description: Cualquier observación adicional sobre la reserva.
+          example: Necesitamos una mesa cerca de la ventana.
+        idUsuario:
+          type: string
+          format: email
+          description: El email del usuario que hizo la reserva.
+          example: azahara.gracia@example.com
+        estadoReserva:
+          type: string
+          description: El estado actual de la reserva.
+          example: Confirmada
+        creadaEn:
+          type: string
+          format: date-time
+          description: La fecha y hora en que se creó la reserva.
+          example: 2024-05-01T12:00:00Z
+        modificadaEn:
+          type: string
+          format: date-time
+          description: La fecha y hora de la última modificación de la reserva.
+          example: 2024-05-15T15:30:00Z
+      required:
+        - idRecurso
+        - fechaReserva
+        - horaInicio
+        - horaFin
+        - numPlazas
+    Usuario:
+      type: object
+      properties:
+        email:
+          type: string
+          description: El email del usuario.
+          example: azahara.gracia@example.com
+        nombre:
+          type: string
+          description: El nombre del usuario.
+          example: Azahara Gracia Macia
+        fechaNacimiento:
+          type: string
+          format: date
+          description: La fecha de nacimiento del usuario.
+          example: 1989-01-14
+        edad:
+          type: integer
+          description: La edad del usuario.
+          example: 37
+        tipoUsuario:
+          type: string
+          description: El tipo de usuario.
+          example: Cliente
+        telefonoGuardia:
+          type: string
+          description: El teléfono de guardia del usuario.
+          example: 654321987
+        telefonoMovil:
+          type: string
+          description: El teléfono móvil del usuario.
+          example: 654321987
+        direccion:
+          type: string
+          description: La dirección del usuario.
+          example: C/ Ejemplo, 123, 28001 Madrid
+        fotografia:
+          type: string
+          format: byte
+          description: Imagen del usuario en formato base64.
+          example: iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==
